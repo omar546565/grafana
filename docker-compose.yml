@@ -94,13 +94,15 @@ services:
       - grafana_data:/var/lib/grafana
       - ./grafana/provisioning/dashboards:/etc/grafana/provisioning/dashboards
       - ./grafana/provisioning/datasources:/etc/grafana/provisioning/datasources
+    ports:
+      - "5000:3000"
     environment:
       - GF_SECURITY_ADMIN_USER=${ADMIN_USER:-admin}
       - GF_SECURITY_ADMIN_PASSWORD=${ADMIN_PASSWORD:-admin}
       - GF_USERS_ALLOW_SIGN_UP=false
     restart: unless-stopped
     expose:
-      - 3000
+      - 5000
     networks:
       - monitor-net
     labels:
@@ -121,7 +123,7 @@ services:
     image: caddy:2.6.4
     container_name: caddy
     ports:
-      - "3000:3000"
+      - "4000:4000"
       - "8080:8080"
       - "9090:9090"
       - "9093:9093"
